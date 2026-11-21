@@ -1,0 +1,26 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MP3LocalDownloader</RootNamespace>
+    <AssemblyName>LumaVideoDownloader</AssemblyName>
+    <AssemblyTitle>Luma Video Downloader</AssemblyTitle>
+    <Product>Luma Video Downloader</Product>
+    <ApplicationIcon>Assets\LumaVideoDownloader.ico</ApplicationIcon>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Remove="Setup\**\*.cs;Tests\**\*.cs" />
+  </ItemGroup>
+  <ItemGroup Condition="'$(PortableToolsArchive)' != ''">
+    <EmbeddedResource Include="$(PortableToolsArchive)" LogicalName="MP3LocalDownloader.PortableTools.zip" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="THIRD_PARTY_NOTICES.md" LogicalName="MP3LocalDownloader.THIRD_PARTY_NOTICES.md" />
+  </ItemGroup>
+  <ItemGroup>
+    <InternalsVisibleTo Include="MP3LocalDownloader.SmokeTests" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,35 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net10.0-windows</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>MP3LocalDownloader.Setup</RootNamespace>
+    <AssemblyName>LumaVideoDownloader-Setup</AssemblyName>
+    <AssemblyTitle>Luma Video Downloader Setup</AssemblyTitle>
+    <Product>Luma Video Downloader</Product>
+    <ApplicationIcon>..\Assets\LumaVideoDownloader.ico</ApplicationIcon>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <DebugType>none</DebugType>
+    <DebugSymbols>false</DebugSymbols>
+    <DotNetExecutable Condition="'$(DotNetExecutable)' == ''">dotnet</DotNetExecutable>
+  </PropertyGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="$(MSBuildProjectDirectory)\obj\$(Configuration)\MP3LocalDownloader-AppPayload.zip"
+                      LogicalName="MP3LocalDownloader.Setup.MP3LocalDownloader-AppPayload.zip" />
+  </ItemGroup>
+
+  <Target Name="BuildEmbeddedApplicationPayload" BeforeTargets="PrepareResources">
+    <PropertyGroup>
+      <AppPayloadDirectory>$(MSBuildProjectDirectory)\obj\$(Configuration)\AppBundle</AppPayloadDirectory>
+      <AppPayloadArchive>$(MSBuildProjectDirectory)\obj\$(Configuration)\MP3LocalDownloader-AppPayload.zip</AppPayloadArchive>
+    </PropertyGroup>
+    <Exec Command="&quot;$(DotNetExecutable)&quot; publish &quot;$(MSBuildProjectDirectory)\..\MP3LocalDownloader.csproj&quot; --configuration &quot;$(Configuration)&quot; --runtime win-x64 --self-contained true -p:PublishSingleFile=true -p:IncludeNativeLibrariesForSelfExtract=true -p:EnableCompressionInSingleFile=true -p:DebugType=None -p:DebugSymbols=false -o &quot;$(AppPayloadDirectory)&quot;" />
+    <ZipDirectory SourceDirectory="$(AppPayloadDirectory)" DestinationFile="$(AppPayloadArchive)" Overwrite="true" />
+  </Target>
+</Project>

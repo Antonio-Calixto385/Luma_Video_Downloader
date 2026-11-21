@@ -1,0 +1,6 @@
+bin/
+obj/
+tools/*.exe
+tools/*.zip
+tools/*.7z
+artifacts/
